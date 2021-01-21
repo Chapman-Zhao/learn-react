@@ -23,6 +23,11 @@ const Display = ({ text }) => <h1>{text}</h1>
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const Statistics = ({ good, neutral, bad }) => {
+  if (good + neutral + bad === 0) {
+    return (
+      <p>No feedback given</p>
+    )
+  }
   return (
     <div>
       <p>good:{good}</p>
