@@ -19,52 +19,36 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <div>
-        the app is used by pressing the buttons
-      </div>
-    )
-  }
+const Display = ({ text }) => <h1>{text}</h1>
+const Show = ({ text, count }) => <p>{text}:{count}</p>
 
-  return (
-    <div>
-      button press history: {props.allClicks.join(' ')}
-    </div>
-  )
-}
-const Button = ({ onClick, text }) => {
-  return (
-    <button onClick={onClick}>
-      {text}
-    </button>
-  )
-}
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const App = () => {
-  const [clicks, setClicks] = useState(
-    {left: 0, right: 0}
-  )
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
-  const [allClicks, setAllClicks] = useState([])
-
-  const handleLeftClick = () => {
-    setAllClicks(allClicks.concat('L'))
-    setClicks({ ...clicks, left: clicks.left + 1 })
+  const handleGoodClick = () => {
+    setGood(good + 1)
+  }
+  const handleNeutralClick = () => {
+    setNeutral(neutral + 1)
+  }
+  const handleBadClick = () => {
+    setBad(bad + 1)
   }
 
-  const handleRightClick = () => {
-    setAllClicks(allClicks.concat('R'))
-    setClicks({ ...clicks, right: clicks.right + 1 })
-  }
   return (
     <div>
-      {clicks.left}
-      <Button onClick={handleLeftClick} text='left' />
-      <Button onClick={handleRightClick} text='right' />
-      {clicks.right}
-      <History allClicks={allClicks} />
+      <Display text='give feedback' />
+      <Button onClick={handleGoodClick} text='good' />
+      <Button onClick={handleNeutralClick} text='neutral' />
+      <Button onClick={handleBadClick} text='bad' />
+      <Display text='statistics' />
+      <Show text='good' count={good} />
+      <Show text='neutral' count={neutral} />
+      <Show text='bad' count={bad} />
     </div>
   )
 }
