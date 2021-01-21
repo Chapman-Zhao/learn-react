@@ -61,8 +61,8 @@ const App = () => {
   return (
     <div>
       {clicks.left}
-      <button onClick={handleLeftClick} text='left'>left</button>
-      <button onClick={handleRightClick} text='right'>right</button>
+      <Button onClick={handleLeftClick} text='left' />
+      <Button onClick={handleRightClick} text='right' />
       {clicks.right}
       <History allClicks={allClicks} />
     </div>
