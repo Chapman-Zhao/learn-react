@@ -21,7 +21,7 @@ import ReactDOM from 'react-dom'
 
 const Display = ({ text }) => <h1>{text}</h1>
 const Show = ({ text, count }) => <p>{text}:{count}</p>
-
+const Comp = ({ sum, num, text}) => <p>{text}:{num/sum}</p>
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
 const App = () => {
@@ -49,6 +49,9 @@ const App = () => {
       <Show text='good' count={good} />
       <Show text='neutral' count={neutral} />
       <Show text='bad' count={bad} />
+      <Show text='all' count={good + neutral + bad} />
+      <Comp text='average' sum={good + neutral + bad} num={good - bad} />
+      <Comp text='positive' sum={good + neutral + bad} num={good} />
     </div>
   )
 }
