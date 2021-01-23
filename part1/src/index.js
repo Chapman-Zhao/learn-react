@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Select = (props) => {
+  for (let i = 0; i < vote.length; i ++)
+    if (vote[i] > max) {
+      max = vote[i]
+      most = i
+    }
+  return (
+    <p>{props.anecdotes[most]}</p>
+  )
+}
 const App = (props) => {
   const [selected, setSelected] = useState(0)
 
@@ -16,10 +26,13 @@ const App = (props) => {
 
   return (
     <div>
+      <h1>Anecdotes of the day</h1>
       {props.anecdotes[selected]}
       <p>has {props.vote[selected]} votes</p>
       <button onClick={handleVoteClick}>vote</button>
       <button onClick={handleSelectedClick}>next</button>
+      <h1>Anecdotes with most vote</h1>
+      <Select anecdotes={anecdotes} />
     </div>
   )
 }
@@ -35,7 +48,10 @@ const anecdotes = [
 
 const vote = [0, 0, 0, 0, 0, 0]
 
+let most = 0
+let max = 0
+
 ReactDOM.render(
-  <App anecdotes={ anecdotes} vote={vote} />,
+  <App anecdotes={anecdotes} vote={vote} />,
   document.getElementById('root')
 )
