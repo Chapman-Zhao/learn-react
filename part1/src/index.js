@@ -10,9 +10,15 @@ const App = (props) => {
       setSelected(num)
   }
 
+  const handleVoteClick = () => {
+    vote[selected] += 1
+  }
+
   return (
     <div>
       {props.anecdotes[selected]}
+      <p>has {props.vote[selected]} votes</p>
+      <button onClick={handleVoteClick}>vote</button>
       <button onClick={handleSelectedClick}>next</button>
     </div>
   )
@@ -27,7 +33,9 @@ const anecdotes = [
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
 
+const vote = [0, 0, 0, 0, 0, 0]
+
 ReactDOM.render(
-  <App anecdotes={anecdotes} />,
+  <App anecdotes={ anecdotes} vote={vote} />,
   document.getElementById('root')
 )
