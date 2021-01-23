@@ -1,89 +1,33 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './App';
-// import reportWebVitals from './reportWebVitals';
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
-
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Display = ({ text }) => <h1>{text}</h1>
-const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
+const App = (props) => {
+  const [selected, setSelected] = useState(0)
 
-const Statistics = ({ good, neutral, bad }) => {
-  if (good + neutral + bad === 0) {
-    return (
-      <p>No feedback given</p>
-    )
-  }
-  return (
-    <div>
-      <table>
-        <tr>
-          <td>good</td>
-          <td>{good}</td>
-        </tr>
-        <tr>
-          <td>neutral</td>
-          <td>{neutral}</td>
-        </tr>
-        <tr>
-          <td>bad</td>
-          <td>{bad}</td>
-        </tr>
-        <tr>
-          <td>all</td>
-          <td>{good + neutral + bad}</td>
-        </tr>
-        <tr>
-          <td>average</td>
-          <td>{(good - bad) / (good + neutral + bad)}</td>
-        </tr>
-        <tr>
-          <td>positive</td>
-          <td>{good / (good + neutral + bad) * 100}%</td>
-        </tr>
-      </table>
-    </div>
-  )
-}
-const App = () => {
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-
-  const handleGoodClick = () => {
-    setGood(good + 1)
-  }
-  const handleNeutralClick = () => {
-    setNeutral(neutral + 1)
-  }
-  const handleBadClick = () => {
-    setBad(bad + 1)
+  const handleSelectedClick = () => {
+    let num = Math.floor(Math.random()*10)
+    if (num < anecdotes.length)
+      setSelected(num)
   }
 
   return (
     <div>
-      <Display text='give feedback' />
-      <Button onClick={handleGoodClick} text='good' />
-      <Button onClick={handleNeutralClick} text='neutral' />
-      <Button onClick={handleBadClick} text='bad' />
-      <Display text='statistics' />
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      {props.anecdotes[selected]}
+      <button onClick={handleSelectedClick}>next</button>
     </div>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const anecdotes = [
+  'If it hurts, do it more often',
+  'Adding manpower to a late software project makes it later!',
+  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+  'Premature optimization is the root of all evil.',
+  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
+]
+
+ReactDOM.render(
+  <App anecdotes={anecdotes} />,
+  document.getElementById('root')
+)
