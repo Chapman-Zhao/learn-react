@@ -31,8 +31,14 @@ const Course = ({ course }) => {
 }
 
 const Totle = ({ parts }) => {
+  var initialValue = 0
+  var total = parts.reduce((accumulator, currentValue) => {
+    console.log('what is happening', accumulator, currentValue)
+    return accumulator + currentValue.exercises
+  }, initialValue)
+
   return (
-    <p>totle of {2*parts[1].exercises + 2*parts[2].exercises} exercises</p>
+    <p>totle of {total} exercises</p>
   )
 }
 
