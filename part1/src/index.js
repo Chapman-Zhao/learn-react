@@ -24,7 +24,21 @@ const Course = ({ course }) => {
     <div>
       <h1>{course.name}</h1>
       <Part parts={course.parts} />
+      <Redux parts={course.parts} />
+      <Totle parts={course.parts} />
     </div>
+  )
+}
+
+const Totle = ({ parts }) => {
+  return (
+    <p>totle of {2*parts[1].exercises + 2*parts[2].exercises} exercises</p>
+  )
+}
+
+const Redux = ({ parts }) => {
+  return (
+    <p>Redux {parts[1].exercises + parts[2].exercises - parts[0].exercises}</p>
   )
 }
 const App = () => {
