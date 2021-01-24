@@ -1,46 +1,59 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const notes = [
-  {
-    id: 1,
-    content: 'HTML is easy',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true
-  },
-  {
-    id: 2,
-    content: 'Browser can execute only JavaScript',
-    date: '2019-05-30T18:39:34.091Z',
-    important: false
-  },
-  {
-    id: 3,
-    content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2019-05-30T19:20:14.298Z',
-    important: true
-  }
-]
-
-const Notes = ({ note }) => {
-  return (
-    <li>{note.content}</li>
-  )
-}
-
-const App = ({ notes }) => {
+// App
+//   Course
+//     Header
+//     Content
+//       Part
+//       Part
+//       ...
+// ...
+const Part = ({ parts }) => {
   return (
     <div>
-      <h1>Notes</h1>
-      <ul>
-        {notes.map(note => 
-          <Notes key={note.id} note={note} />)}
-      </ul>
+      <p>{parts[0].name} {parts[0].exercises}</p>
+      <p>{parts[1].name} {parts[1].exercises}</p>
+      <p>{parts[2].name} {parts[2].exercises}</p>
     </div>
   )
 }
 
+const Course = ({ course }) => {
+  return (
+    <div>
+      <h1>{course.name}</h1>
+      <Part parts={course.parts} />
+    </div>
+  )
+}
+const App = () => {
+  const course = {
+    id: 1,
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      }
+    ]
+  }
+    return <Course course={course} />
+ 
+}
+
 ReactDOM.render(
-  <App notes={notes} />,
+  <App />,
   document.getElementById('root')
 )
