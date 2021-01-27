@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '12323455436'}
-  ]) 
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
+  ])
+  const [ filterPersons, setFilterPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ newFilter, setNewFilter ] = useState('')
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -18,6 +23,22 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const handleFilterChange = (event) => {
+    setFilterPersons([])
+    console.log(event.target.value)
+    setNewFilter(event.target.value)
+    persons.forEach((item1) => {
+      let temp = 0
+      if (item1.name.includes(newFilter)) {
+        filterPersons.forEach((item2) => {
+          if (item1 === item2) temp = 1
+        })
+        if (temp === 1) temp = 0
+        else setFilterPersons(filterPersons.concat(item1))
+      }
+    })
+    
+  }
   const addName = (event) => {
     event.preventDefault()
     const nameObject ={
@@ -25,7 +46,7 @@ const App = () => {
       number: newNumber
     }
     let flag = 0
-    persons.forEach((item, index) => {
+    persons.forEach((item) => {
       if (item.name === nameObject.name) flag = 1
     })
     console.log(nameObject)
@@ -42,6 +63,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      filer shown with<input 
+        onChange={handleFilterChange}
+      />
+      <h2>Add a New</h2>
       <form onSubmit={addName}>
         <div>
           name: <input 
@@ -61,7 +86,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(person => 
+        {filterPersons.map(person => 
           <li key={person.name}>{person.name}: {person.number}</li>
         )}
       </ul>
