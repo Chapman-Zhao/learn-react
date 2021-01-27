@@ -17,8 +17,17 @@ const App = () => {
     const nameObject ={
       name: newName
     }
+    let flag = 0
+    persons.forEach((item, index) => {
+      if (item.name === nameObject.name) flag = 1
+    })
     console.log(nameObject)
-    setPersons(persons.concat(nameObject))
+    if (flag !== 1) {
+      setPersons(persons.concat(nameObject))
+    } else {
+      flag = 0
+      window.alert(nameObject.name + " is already added to phonebook")
+    }
     setNewName('')
   }
 
