@@ -3,19 +3,26 @@ import ReactDOM from 'react-dom'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '12323455436'}
   ]) 
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
   }
 
+  const handleNumberChange = (event) => {
+    console.log(event.target.value)
+    setNewNumber(event.target.value)
+  }
+
   const addName = (event) => {
     event.preventDefault()
     const nameObject ={
-      name: newName
+      name: newName,
+      number: newNumber
     }
     let flag = 0
     persons.forEach((item, index) => {
@@ -29,6 +36,7 @@ const App = () => {
       window.alert(nameObject.name + " is already added to phonebook")
     }
     setNewName('')
+    setNewNumber('')
   }
 
   return (
@@ -40,6 +48,12 @@ const App = () => {
             value={newName}
             onChange={handleNameChange}
           />
+        <div>
+          number: <input 
+            value={newNumber}
+            onChange={handleNumberChange}
+          />
+        </div>
         </div>
         <div>
           <button type='submit'>add</button>
@@ -48,7 +62,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {persons.map(person => 
-          <li key={person.name}>{person.name}</li>
+          <li key={person.name}>{person.name}: {person.number}</li>
         )}
       </ul>
     </div>
