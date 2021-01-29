@@ -10,7 +10,6 @@ const App = () => {
   const [ filterPersons, setFilterPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
-  const [ newFilter, setNewFilter ] = useState('')
 
   const hook = () => {
     axios
@@ -34,19 +33,15 @@ const App = () => {
   }
 
   const handleFilterChange = (event) => {
-    setFilterPersons([])
     console.log(event.target.value)
-    setNewFilter(event.target.value)
-    persons.forEach((item1) => {
-      let temp = 0
-      if (item1.name.includes(newFilter)) {
-        filterPersons.forEach((item2) => {
-          if (item1 === item2) temp = 1
-        })
-        if (temp === 1) temp = 0
-        else setFilterPersons(filterPersons.concat(item1))
-      }
-    })
+
+    const search = event.target.value
+
+    setFilterPersons(
+      search ? (
+        persons.filter(t => t.name.includes(search))
+      )      : persons
+    )
   }
 
   const addName = (event) => {
